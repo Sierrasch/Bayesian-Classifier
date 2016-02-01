@@ -20,8 +20,22 @@ class Classifier{
 	    
 	    //handles each review one by one
             while((line = bufferedReader.readLine()) != null) {
-		System.out.println(line.charAt(0));
-		System.out.println(line.charAt(2));
+		int reviewType = Integer.parseInt("" + line.charAt(0)); //contains sentiment of review
+		String review = line.substring(2); //contains text of the review
+		for(String newWord: line.split(" ")){
+		    if(words.containsKey(newWord)){ //word has already been added
+			if(reviewType == 1){
+			    //add one to positive review count for word 
+			}else{
+			    //add one to negative review count for word
+			}
+		    }else{ // word has not yet been added
+			//add object to hashTable with 1 instance of positive or negative review
+		    }
+		}
+
+		System.out.println(reviewType);
+		System.out.println(review);
 		//TODO: Deal with each review
             }   
 
