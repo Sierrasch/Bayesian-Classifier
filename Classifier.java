@@ -36,7 +36,7 @@ class Classifier{
 
 		System.out.println(reviewType);
 		System.out.println(review);
-		//TODO: Deal with each review
+	
             }   
 
             bufferedReader.close();         
