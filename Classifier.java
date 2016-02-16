@@ -112,12 +112,12 @@ class Classifier{
 			    if(current.positiveProb != 0){
 				positiveProbability += (double)Math.log(current.positiveProb);
 			    }else{
-				positiveProbability += -10;
+				positiveProbability += -7;
 			    }
 			    if(current.negativeProb != 0){
 				negativeProbability += (double)Math.log(current.negativeProb);
 			    }else{
-				negativeProbability += -10;
+				negativeProbability += -7;
 			    }
 			}
 		    }
