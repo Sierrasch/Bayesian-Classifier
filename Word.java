@@ -1,10 +1,11 @@
 class Word{
-    String word; 
     int positiveCount; //stores number of positive documents which contain word 
     int negativeCount; //stores number of negative documents which contain word
+    double positiveProb; //stores P(word occurs | review is positive)
+    double negativeProb; //stores P(word occurs | review is negative)
+
     
-    Word(String newWord, int posOrNeg){
-	word = newWord;
+    Word(int posOrNeg){
 	if(posOrNeg == 1){
 	    positiveCount = 1;
 	    negativeCount = 0;
@@ -12,17 +13,20 @@ class Word{
 	    positiveCount = 0;
 	    negativeCount = 1;
 	}
+	positiveProb = -1;
+	negativeProb = -1;
     }
 
     Word(){
-	word = "";
 	positiveCount = 0;
 	negativeCount = 0;
-    }
+	positiveProb = -1;
+	negativeProb = -1;
+}
 
     public String toString(){
 	String result = "";
-	result += "(" + word + "," + positiveCount + "," + negativeCount + ")";
+	result += "(" + positiveCount + "," + negativeCount + "," + positiveProb + "," + negativeProb + ")";
 	return result;
     }
 }
