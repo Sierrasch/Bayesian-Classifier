@@ -21,6 +21,8 @@ class DecisionTreeClassifier{
 	int positiveReviewCount = 0;
 	int negativeReviewCount = 0;
 
+	final long startTraining = System.currentTimeMillis();
+	
 	/* CREATE HASHTABLE OF ALL WORDS */
         try {
             // FileReader reads text files in the default encoding.
@@ -86,12 +88,20 @@ class DecisionTreeClassifier{
 	    words.get(key).negativeProb = (double) words.get(key).negativeCount / negativeReviewCount;
 	}
 
+	final long endTraining = System.currentTimeMillis();
 
 	/*Classify the testing set*/
 
-	double testingResults = classifyData(testingFile, words, true);
 	double trainingResults = classifyData(trainingFile, words, false);
+	double testingResults = classifyData(testingFile, words, true);
 
+	final long endTesting = System.currentTimeMillis();
+
+	int trainingTime = (int)((endTraining - startTraining)/ 1000);
+	int testingTime = (int)((endTesting - endTraining) / 1000);
+
+	System.out.println("" + trainingTime + " seconds (training)");
+	System.out.println("" + testingTime + " seconds (labeling)");
 	System.out.println("" + trainingResults + " (training)");
 	System.out.println("" + testingResults + " (testing)");
     }
