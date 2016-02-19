@@ -69,23 +69,22 @@ class DecisionTreeClassifier{
 	    bufferedReader.close();
 
         }
-        catch(FileNotFoundException ex) {
+        catch(FileNotFoundException ex){
             System.out.println(
 			       "Unable to open file '" + 
 			       trainingFile + "'");                
         }
-        catch(IOException ex) {
+        catch(IOException ex){
             System.out.println(
 			       "Error reading file '" 
 			       + trainingFile + "'");
         }
 	
 	/*Populate hashtable with probability values*/
-
 	Set<String> keys = words.keySet();
 	for(String key: keys){
-	    words.get(key).positiveProb = (double) words.get(key).positiveCount / positiveReviewCount;
-	    words.get(key).negativeProb = (double) words.get(key).negativeCount / negativeReviewCount;
+	    words.get(key).positiveProb = (double) words.get(key).positiveCount/ positiveReviewCount;
+	    words.get(key).negativeProb = (double) words.get(key).negativeCount/ negativeReviewCount;
 	}
 
 	final long endTraining = System.currentTimeMillis();
@@ -134,18 +133,24 @@ class DecisionTreeClassifier{
 		HashSet<String> uniqueWords = new HashSet<String>(); //used to check if word has already been added
 
 		for(String currentWord: review.split(" ")){
-		    if(uniqueWords.add(currentWord)){ //word has not already been calculated for this review
-			if(words.containsKey(currentWord)){
-			    Word current = words.get(currentWord);
-			    if(current.positiveProb != 0){
-				positiveProbability += (double)Math.log(current.positiveProb);
-			    }else{
-				positiveProbability += -7;
-			    }
-			    if(current.negativeProb != 0){
-				negativeProbability += (double)Math.log(current.negativeProb);
-			    }else{
-				negativeProbability += -7;
+		    int wordOccurances = 0;
+		    if(words.containsKey(currentWord)){
+			wordOccurances = words.get(currentWord).positiveCount + words.get(currentWord).negativeCount;
+		    }
+		    if(wordOccurances > 12){
+			if(uniqueWords.add(currentWord)){ //word has not already been calculated for this review
+			    if(words.containsKey(currentWord)){
+				Word current = words.get(currentWord);
+				if(current.positiveProb != 0){
+				    positiveProbability += (double)Math.log(current.positiveProb);
+				}else{
+				    positiveProbability += -7.5;
+				}
+				if(current.negativeProb != 0){
+				    negativeProbability += (double)Math.log(current.negativeProb);
+				}else{
+				    negativeProbability += -7.5;
+				}
 			    }
 			}
 		    }
